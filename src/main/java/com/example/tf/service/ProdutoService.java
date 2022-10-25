@@ -22,21 +22,19 @@ public class ProdutoService {
 
 	@Autowired
 	ProdutoRepository produtoRepository;
-	
+
 	@Autowired
 	FotoService fotoService;
 
 	public List<ProdutoDTO> findAll() {
 		List<Produto> produtos = produtoRepository.findAll();
 		List<ProdutoDTO> dtos = new ArrayList<>();
-		for(Produto produto : produtos) {
+		for (Produto produto : produtos) {
 			ProdutoDTO dto = adicionarImagemUri(produto);
 			dtos.add(dto);
 		}
 		return dtos;
 	}
-	
-	
 
 	public Optional<Produto> findById(Long id) {
 		Optional<Produto> produto = produtoRepository.findById(id);
@@ -77,7 +75,7 @@ public class ProdutoService {
 	}
 
 	public ProdutoDTO adicionarImagemUri(Produto produto) {
-		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/produtos/{id}/foto")
+		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/produto/{id}/foto")
 				.buildAndExpand(produto.getIdProduto()).toUri();
 		ProdutoDTO dto = new ProdutoDTO();
 		dto.setNomeProduto(produto.getNomeProduto());
@@ -88,7 +86,7 @@ public class ProdutoService {
 		dto.setUrl(uri.toString());
 		return dto;
 	}
-	
+
 	public ProdutoDTO buscar(Long id) {
 		Optional<Produto> produto = produtoRepository.findById(id);
 		return adicionarImagemUri(produto.get());
@@ -99,4 +97,5 @@ public class ProdutoService {
 		fotoService.inserir(produto, file);
 		return adicionarImagemUri(produto);
 	}
+
 }

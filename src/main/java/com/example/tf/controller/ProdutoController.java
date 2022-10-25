@@ -1,7 +1,6 @@
 package com.example.tf.controller;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.tf.DTO.ProdutoDTO;
 import com.example.tf.domain.Foto;
@@ -40,6 +38,8 @@ public class ProdutoController {
 	private ProdutoService produtoService;
 	@Autowired
 	private FotoService fotoService;
+//	@Autowired
+//	private FotoRepository fotoRepository;
 
 
 
@@ -69,16 +69,16 @@ public class ProdutoController {
 	}
 
 
-	@PostMapping
-	public ResponseEntity<Produto> PostProduto(@Valid @RequestBody ProdutoDTO produtoDTO) {
-		Produto produtoTemp = produtoService.PostProduto(produtoDTO);
-		if (produtoTemp == null) {
-			return ResponseEntity.notFound().build();
-		}
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(produtoTemp.getIdProduto()).toUri();
-		return ResponseEntity.created(uri).body(produtoTemp);
-	}
+//	@PostMapping
+//	public ResponseEntity<Produto> PostProduto(@Valid @RequestBody ProdutoDTO produtoDTO) {
+//		Produto produtoTemp = produtoService.PostProduto(produtoDTO);
+//		if (produtoTemp == null) {
+//			return ResponseEntity.notFound().build();
+//		}
+//		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+//				.buildAndExpand(produtoTemp.getIdProduto()).toUri();
+//		return ResponseEntity.created(uri).body(produtoTemp);
+//	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Optional<Produto>> PutProduto(@Valid @RequestBody ProdutoDTO produtoDTO,

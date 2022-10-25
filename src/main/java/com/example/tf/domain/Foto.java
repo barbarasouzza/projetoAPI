@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 public class Foto {
 	@Id
@@ -18,11 +20,12 @@ public class Foto {
 	@Column(name = "id_foto")
 	private Long id;
 	@Lob
+	@Type(type="org.hibernate.type.BinaryType")
 	private byte[] dados;
 	private String tipo;
 	private String nome;
 	@OneToOne
-	@JoinColumn(name="idproduto")
+	@JoinColumn(name="id_produto")
 	private Produto produto;
 	public Foto() {
 	}
